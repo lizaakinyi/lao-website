@@ -10,8 +10,13 @@ import { r2Storage } from '@payloadcms/storage-r2'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Articles } from './collections/Articles'
+import { Tools } from './collections/Tools'
+import { Events } from './collections/Events'
+import { Programs } from './collections/Programs'
+import { Subscribers } from './collections/Subscribers'
 import { SiteSettings } from './globals/SiteSettings'
-import migrations from './db/migrations'
+import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -32,7 +37,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Articles, Tools, Events, Programs, Subscribers],
   globals: [SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
@@ -41,6 +46,8 @@ export default buildConfig({
   },
   db: sqliteD1Adapter({
     binding: cloudflare.env.D1,
+    prodMigrations: migrations,
+    push: false,
   }),
   plugins: [
     r2Storage({

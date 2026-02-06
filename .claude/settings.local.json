@@ -1,0 +1,24 @@
+{
+    "permissions": {
+        "allow": [
+            "mcp__context7__query-docs"
+        ]
+    },
+    "statusLine": {
+        "type": "command",
+        "command": "php .claude/scripts/statusline.php"
+    },
+    "hooks": {
+        "SessionStart": [
+            {
+                "matcher": "*",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "php .claude/hooks/session-start.php"
+                    }
+                ]
+            }
+        ]
+    }
+}
